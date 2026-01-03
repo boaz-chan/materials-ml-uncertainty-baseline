@@ -20,9 +20,8 @@ def rmse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 
 
 def main() -> None:
-    # -----------------------------
-    # 1) Load data
-    # -----------------------------
+
+    # 1 Load data
     X_path = FEATURE_DIR / "magpie_X_test_200.parquet"
     y_path = FEATURE_DIR / "magpie_y_test_200.parquet"
 
@@ -43,9 +42,7 @@ def main() -> None:
     print("Train shape:", X_train.shape)
     print("Test shape :", X_test.shape)
 
-    # -----------------------------
-    # 2) Baseline single RF
-    # -----------------------------
+    # 2 Baseline single RF
     # Note: n_jobs=1 for stability on Windows.
     # Later, once stable, you can increase n_jobs for speed.
     base_rf = RandomForestRegressor(
@@ -65,9 +62,7 @@ def main() -> None:
     print(f"  RMSE: {base_rmse:.3f} eV")
     print(f"  R²:   {base_r2:.3f}")
 
-    # -----------------------------
-    # 3) Ensemble for uncertainty (epistemic proxy)
-    # -----------------------------
+    # 3 Ensemble for uncertainty (epistemic proxy)
     n_models = 20
     print(f"\nTraining ensemble of {n_models} RF models...")
 
@@ -101,9 +96,8 @@ def main() -> None:
         f"max={std_pred.max():.6f}"
     )
 
-    # -----------------------------
-    # 4) Save predictions for analysis (restart-safe)
-    # -----------------------------
+    # 4 Save predictions for analysis (restart-safe)
+
     df_out = pd.DataFrame(
         {
             "y_true": y_test,

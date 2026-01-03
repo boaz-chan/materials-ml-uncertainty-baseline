@@ -14,9 +14,8 @@ SPLIT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def main() -> None:
-    # ---------
-    # 1) Load features + target
-    # ---------
+
+    # 1 Load features + target
     X_path = FEATURE_DIR / "magpie_X_test_200.parquet"
     y_path = FEATURE_DIR / "magpie_y_test_200.parquet"
 
@@ -29,18 +28,14 @@ def main() -> None:
     print("X shape:", X.shape)
     print("y shape:", y.shape)
 
-    # ---------
-    # 2) Define numeric ML matrix (drop non-numeric columns)
-    # ---------
+    # 2 Define numeric ML matrix (drop non-numeric columns)
     non_numeric_cols = [c for c in X.columns if X[c].dtype == "object"]
     print("Non-numeric columns:", non_numeric_cols)
 
     X_num = X.drop(columns=non_numeric_cols)
     print("X_num shape:", X_num.shape)
 
-    # ---------
-    # 3) Reproducible split
-    # ---------
+    # 3 Reproducible split
     test_size = 0.2
     seed = 42
 
@@ -52,9 +47,7 @@ def main() -> None:
     print("Train size:", len(train_idx))
     print("Test size :", len(test_idx))
 
-    # ---------
-    # 4) Save split indices
-    # ---------
+    # 4 Save split indices
     np.save(SPLIT_DIR / "train_idx.npy", train_idx)
     np.save(SPLIT_DIR / "test_idx.npy", test_idx)
 
