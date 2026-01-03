@@ -1,0 +1,17 @@
+#Python
+__pychache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+#Jupyter
+.ipynb_checkpoints/
+
+#Data + results (do not commit)
+data/
+results/
+
+#OS
+Thumbs.db
+.DS_Store
